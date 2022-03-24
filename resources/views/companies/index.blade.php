@@ -4,6 +4,7 @@
     <h2 class="text-center">List Data Companies</a></h2>
 
     <a href="{{ route('companies.create') }}" class="btn btn-success mb-2">Add Data Companies</a>
+    <a href="{{ route('print.companies') }}" class="btn btn-primary mb-2" href="">Print</a>
     
 
     @if(session()->has('status'))

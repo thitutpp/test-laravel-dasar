@@ -25,4 +25,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('companies', 'CompaniesController')->middleware('auth');
 Route::resource('employees', 'EmployeesController')->middleware('auth');
 
-Route::get('/pdf', 'EmployeesController@print')->name('print');
+
+Route::get('/companies-select', 'EmployeesController@print')->name('companies.select');
+
+
+Route::get('/employees-pdf', 'EmployeesController@print')->name('print.employees');
+Route::get('/companies-pdf', 'CompaniesController@print')->name('print.companies');

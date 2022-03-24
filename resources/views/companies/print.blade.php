@@ -6,7 +6,12 @@
 </head>
 
 <style>
-
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
     .attendance-table table{
   width: 100%;
   border-collapse: collapse;
@@ -50,23 +55,21 @@ vertical-align: middle;
 
             <tr>
                 <th class="attendance-cell">No</th>
+                <th class="attendance-cell">Logo</th>
                 <th class="attendance-cell">Name</th>
                 <th class="attendance-cell">Email</th>
-                <th class="attendance-cell">Company</th>
+                <th class="attendance-cell">Website</th>
                 <th class="attendance-cell">Created At</th>
             </tr>
 
-            @foreach($employees as $index => $data)
+            @foreach($companies as $index => $data)
                 <tr>
                     
                     <td class="attendance-cell">{{ ($index+1) }}</td>
+                    <td class="attendance-cell"><img class="image" src="{{ url('storage/company/'.$data->logo) }}" width="100px"></td>
                     <td class="attendance-cell">{{$data->nama}}</td>
                     <td class="attendance-cell">{{$data->email}}</td>
-                    <td>
-                        <img style="vertical-align: middle" class="image" src="{{ url('storage/company/'.$data->get_company->logo) }}">
-                        {{ $data->get_company->nama }}
-                        
-                    </td>
+                    <td class="attendance-cell">{{$data->website}}</td>
                     <td class="attendance-cell">{{ date('Y-m-d', strtotime($data->created_at)) }}</td>
                 </tr>
             @endforeach

@@ -4,7 +4,7 @@
     <h2 class="text-center">List Data Employees</a></h2>
 <br>
     <a href="{{ route('employees.create') }}" class="btn btn-success mb-2">Add Data Employees</a>
-    <a href="{{ route('print') }}" class="btn btn-primary mb-2" href="">Print</a>
+    <a href="{{ route('print.employees') }}" class="btn btn-primary mb-2" href="">Print</a>
     <br>
     @if(session()->has('status'))
         <div class="alert alert-success">

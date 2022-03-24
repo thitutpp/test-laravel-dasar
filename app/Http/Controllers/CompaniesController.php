@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Companies;
 use App\Http\Requests\Companies as RequestsCompanies;
 use Illuminate\Http\Request;
+use PDF;
 
 class CompaniesController extends Controller
 {
@@ -15,7 +16,7 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        $companies = companies::orderBy('id','desc')->paginate(5);
+        $companies = Companies::orderBy('id','desc')->paginate(5);
         return view('companies.index', compact('companies'));
     }
 
@@ -24,6 +25,17 @@ class CompaniesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function print()
+    {
+        $companies = Companies::orderBy('id','desc')->paginate(1); 
+        $pdf = PDF::loadview('companies.print',compact(
+            'companies',
+        ));
+
+        return $pdf->download('companies');
+    }
+
     public function create()
     {
         return view('companies.create');

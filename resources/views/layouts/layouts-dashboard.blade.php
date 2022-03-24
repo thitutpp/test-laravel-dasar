@@ -18,6 +18,17 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Select2 CSS -->
+   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+   <style>
+      .table td {
+
+  vertical-align: middle;
+
+}
+   </style>
 </head>
 <body>
     <div id="app">
@@ -81,5 +92,10 @@
             @yield('content')
         </main>
     </div>
+
+
+    <!-- Select2 -->
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+   @stack('javascript-internal')
 </body>
 </html>
