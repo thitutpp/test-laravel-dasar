@@ -28,7 +28,7 @@ class CompaniesController extends Controller
 
     public function print()
     {
-        $companies = Companies::orderBy('id','desc')->paginate(1); 
+        $companies = Companies::all(); 
         $pdf = PDF::loadview('companies.print',compact(
             'companies',
         ));
@@ -62,7 +62,7 @@ class CompaniesController extends Controller
         $companies->website = $request->website;
         $companies->logo = $logo;
         $companies->save();
-        $request->session()->flash('status','Companies Inserted Successfully');
+        $request->session()->flash('status','Companies Created Successfully');
         return redirect('companies');
     }
 

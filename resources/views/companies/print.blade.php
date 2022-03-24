@@ -66,7 +66,7 @@ vertical-align: middle;
                 <tr>
                     
                     <td class="attendance-cell">{{ ($index+1) }}</td>
-                    <td class="attendance-cell"><img class="image" src="{{ url('storage/company/'.$data->logo) }}" width="100px"></td>
+                    <td class="attendance-cell"><img class="image" src="{{ url('storage/company/'.$data->logo) }}"></td>
                     <td class="attendance-cell">{{$data->nama}}</td>
                     <td class="attendance-cell">{{$data->email}}</td>
                     <td class="attendance-cell">{{$data->website}}</td>

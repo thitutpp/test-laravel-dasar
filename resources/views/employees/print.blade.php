@@ -62,10 +62,9 @@ vertical-align: middle;
                     <td class="attendance-cell">{{ ($index+1) }}</td>
                     <td class="attendance-cell">{{$data->nama}}</td>
                     <td class="attendance-cell">{{$data->email}}</td>
-                    <td>
+                    <td class="attendance-cell">
                         <img style="vertical-align: middle" class="image" src="{{ url('storage/company/'.$data->get_company->logo) }}">
                         {{ $data->get_company->nama }}
-                        
                     </td>
                     <td class="attendance-cell">{{ date('Y-m-d', strtotime($data->created_at)) }}</td>
                 </tr>

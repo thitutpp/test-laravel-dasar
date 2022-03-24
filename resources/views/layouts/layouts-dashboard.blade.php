@@ -50,6 +50,9 @@
                           <li class="nav-item">
                             <a class="nav-link" href="{{url('employees')}}">Employees</a>
                           </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{url('users')}}">User</a>
+                          </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

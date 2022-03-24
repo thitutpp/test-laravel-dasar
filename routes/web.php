@@ -1,5 +1,9 @@
 <?php
 
+use App\Exports\ExcelExport;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,13 +25,23 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
+// CRUD Data
 Route::resource('companies', 'CompaniesController')->middleware('auth');
 Route::resource('employees', 'EmployeesController')->middleware('auth');
+// CRUD Data
 
+// Route Import Excel
+Route::get('users', function () {
+    $user = User::orderBy('id','desc')->paginate(5);
+    return view('user.index',compact('user'));
+})->middleware('auth');
+Route::post('users', function () {
+    Excel::import(new UsersImport, request()->file('file'));
+    return back();
+})->middleware('auth');
+// Route Import Excel
 
-Route::get('/companies-select', 'EmployeesController@print')->name('companies.select');
-
-
-Route::get('/employees-pdf', 'EmployeesController@print')->name('print.employees');
-Route::get('/companies-pdf', 'CompaniesController@print')->name('print.companies');
+// Route Cetak PDF
+Route::get('/employees-pdf', 'EmployeesController@print')->name('print.employees')->middleware('auth');
+Route::get('/companies-pdf', 'CompaniesController@print')->name('print.companies')->middleware('auth');
+// Route Cetak PDF

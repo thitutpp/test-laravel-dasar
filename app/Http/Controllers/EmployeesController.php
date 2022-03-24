@@ -24,7 +24,7 @@ class EmployeesController extends Controller
 
     public function print()
     {
-        $employees = Employees::with(['get_company'])->paginate(5);  
+        $employees = Employees::all();  
         $pdf = PDF::loadview('employees.print',compact(
             'employees',
         ));
