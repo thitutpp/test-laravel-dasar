@@ -113,19 +113,19 @@ class CompaniesController extends Controller
 
 if($request->logo){
     $request->validate([
-        'logo' => 'nullable|file|image|mimes:jpeg,png,jpg|max:5000'
+        'logo' => 'required|image|mimes:png|dimensions:min_width="100px",min_height="100px"',
     ]);  
 
         if($companies->logo != 'noimg.png'){
 
           $oldImg =$companies->logo;
-          unlink(public_path('uploaded_imgs').'/'.$oldImg);
+          unlink(public_path('logo').'/'.$oldImg);
 
           $imgName = $request->logo;
         }
 
             $imgName = date('mdYHis').uniqid().'.'.$request->logo->extension();
-            $request->logo->move(public_path('uploaded_imgs'), $imgName); 
+            $request->logo->move(public_path('logo'), $imgName); 
         
     }
     else{
