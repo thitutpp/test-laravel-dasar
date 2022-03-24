@@ -1,7 +1,7 @@
 @extends('layouts.layouts-dashboard')
 @section('content')
 <div class="container">
-    <h2 style="margin-top: 12px;" class="text-center">Tambah Perusahaan</a></h2>
+    <h2 class="text-center">Add Data Companies</a></h2>
     <br>
 
     @if ($errors->any())

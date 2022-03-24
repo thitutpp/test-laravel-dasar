@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Companies;
+use App\Http\Requests\Companies as RequestsCompanies;
 use Illuminate\Http\Request;
 
 class CompaniesController extends Controller
@@ -34,28 +35,14 @@ class CompaniesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RequestsCompanies $request)
     {
-        $request->validate([
-            'nama' => 'required',
-            'email' => 'required|email',
-            'website' => 'required|url',
-            ]);
-
-            $logo='noimg.png';
-        if($request->logo)
-        {
-        $request->validate([
-            'logo' => 'required|image|mimes:png|dimensions:min_width="100px",min_height="100px"',
-        ]);
-
-        $logo = date('mdYHis').uniqid().'.'.$request->logo->extension();
-        $request->logo->move(public_path('logo'),$logo);	
-       
-
+        $logo='noimg.png';
+        
+        if($request->logo){
+            $logo = date('mdYHis').uniqid().'.'.$request->logo->extension();
+            $request->logo->move(public_path('logo'),$logo);	
         }
- 
-
 
         $companies = new Companies();
         $companies->nama = $request->nama;
@@ -106,15 +93,12 @@ class CompaniesController extends Controller
             'website' => 'required|url',
             ]);
 
-            $companies = Companies::find($id);
+        $companies = Companies::find($id);
 
-
-
-
-if($request->logo){
-    $request->validate([
-        'logo' => 'required|image|mimes:png|dimensions:min_width="100px",min_height="100px"',
-    ]);  
+        if($request->logo){
+            $request->validate([
+                'logo' => 'required|image|mimes:png|dimensions:min_width="100px",min_height="100px"',
+        ]);  
 
         if($companies->logo != 'noimg.png'){
 
@@ -124,8 +108,8 @@ if($request->logo){
           $imgName = $request->logo;
         }
 
-            $imgName = date('mdYHis').uniqid().'.'.$request->logo->extension();
-            $request->logo->move(public_path('logo'), $imgName); 
+        $imgName = date('mdYHis').uniqid().'.'.$request->logo->extension();
+        $request->logo->move(public_path('logo'), $imgName); 
         
     }
     else{

@@ -1,7 +1,7 @@
 @extends('layouts.layouts-dashboard')
 @section('content')
 <div class="container">
-<h2 style="margin-top: 12px;" class="text-center">Edit Companies</a></h2>
+<h2 class="text-center">Edit Data Companies</a></h2>
 <br>
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -21,7 +21,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <strong>Nama</strong>
-                <input type="text" name="nama" class="form-control" placeholder="Enter nama"
+                <input type="text" name="nama" class="form-control" placeholder="Enter Nama Baru"
                     value="{{ $companies->nama }}">
             </div>
         </div>

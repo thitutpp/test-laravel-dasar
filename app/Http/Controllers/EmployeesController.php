@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Companies;
 use App\Employees;
+use App\Http\Requests\Employees as RequestsEmployees;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller
@@ -36,21 +37,14 @@ class EmployeesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RequestsEmployees $request)
     {
-        $this->validate($request, [
-            'nama' => 'required',
-            'email' => 'required',
-            'company' => 'required',
-
-        ]);
-
         Employees::create([
             'nama' => $request->nama,
             'email' => $request->email,
             'company' => $request->company,
         ]);
-        $request->session()->flash('status','Companies Inserted Successfully');
+        $request->session()->flash('status','Employees Inserted Successfully');
         return redirect()->route('employees.index');
     }
 
@@ -60,9 +54,10 @@ class EmployeesController extends Controller
      * @param  \App\Employees  $employees
      * @return \Illuminate\Http\Response
      */
-    public function show(Employees $employees)
+    public function show($id)
     {
-        //
+        $employees = Employees::find($id);
+        return view('employees.show',compact('employees')) ;
     }
 
     /**
@@ -71,9 +66,12 @@ class EmployeesController extends Controller
      * @param  \App\Employees  $employees
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employees $employees)
+    public function edit($id)
     {
-        //
+        $employees = Employees::find($id);
+        $companies = Companies::all()->pluck('nama', 'id')->prepend(trans('Pilih Kategori'), '');
+        $employees->load('get_company');
+        return view('employees.edit', compact('companies', 'employees'));
     }
 
     /**
@@ -83,9 +81,16 @@ class EmployeesController extends Controller
      * @param  \App\Employees  $employees
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employees $employees)
+    public function update(RequestsEmployees $request, $id)
     {
-        //
+        $employees  = Employees::find($id);
+        $employees->nama = $request->input('nama');
+        $employees->email = $request->input('email');
+        $employees->company = $request->input('company');
+        $employees->save();
+        $request->session()->flash('status','Employees Update Successfully');
+
+        return redirect()->route('employees.index');
     }
 
     /**
@@ -94,8 +99,11 @@ class EmployeesController extends Controller
      * @param  \App\Employees  $employees
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employees $employees)
+    public function destroy($id)
     {
-        //
+        $employees = Employees::find($id);
+        $employees->delete();
+        session()->flash('status', 'Employees Deleted Successfully');
+        return redirect('employees');
     }
 }

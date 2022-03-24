@@ -1,9 +1,9 @@
 @extends('layouts.layouts-dashboard')
 @section('content')
 <div class="container">
-    <h2 style="margin-top: 12px;" class="text-center">List Data Companies</a></h2>
+    <h2 class="text-center">List Data Companies</a></h2>
 <br>
-    <a href="{{ route('companies.create') }}" class="btn btn-success mb-2">Tambah</a>
+    <a href="{{ route('companies.create') }}" class="btn btn-success mb-2">Add Data Companies</a>
     <br>
     @if(session()->has('status'))
     <div class="alert alert-success">
@@ -28,17 +28,13 @@
                     @foreach($companies as $data)
                     <tr>
                         <td>
-                            <img class="rounded" src="{{ url('/logo/'.$data->logo) }}" width="100px">
+                            <img class="rounded-circle" src="{{ url('/logo/'.$data->logo) }}" width="100px">
                         </td>
                         <td>{{ $data->nama }}</td>
                         <td>{{ $data->email }}</td>
                         <td>{{ $data->website }}</td>
                         <td>{{ date('Y-m-d', strtotime($data->created_at)) }}</td>
                         <td>
-                            
-                            
-                            
-
                             <div class="d-flex flex-row bd-highlight">
                                 <div class="p-2 bd-highlight"><a class="btn btn-sm btn-info" href="{{ route('companies.show',$data->id) }}">Show</a></div>
                                 <div class="p-2 bd-highlight"><a class="btn btn-sm btn-primary" href="{{ route('companies.edit',$data->id) }}">Edit</a></div>
@@ -51,7 +47,7 @@
     
                                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                 </form></div>
-                              </div>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
