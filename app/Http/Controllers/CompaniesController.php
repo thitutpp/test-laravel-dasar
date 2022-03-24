@@ -41,7 +41,7 @@ class CompaniesController extends Controller
         
         if($request->logo){
             $logo = date('mdYHis').uniqid().'.'.$request->logo->extension();
-            $request->logo->move(public_path('logo'),$logo);	
+            $request->logo->move(storage_path('app/company'),$logo);	
         }
 
         $companies = new Companies();
@@ -103,13 +103,13 @@ class CompaniesController extends Controller
         if($companies->logo != 'noimg.png'){
 
           $oldImg =$companies->logo;
-          unlink(public_path('logo').'/'.$oldImg);
+          unlink(storage_path('app/company').'/'.$oldImg);
 
           $imgName = $request->logo;
         }
 
         $imgName = date('mdYHis').uniqid().'.'.$request->logo->extension();
-        $request->logo->move(public_path('logo'), $imgName); 
+        $request->logo->move(storage_path('app/company'), $imgName); 
         
     }
     else{

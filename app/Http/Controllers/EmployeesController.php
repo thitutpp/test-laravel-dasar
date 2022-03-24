@@ -6,6 +6,8 @@ use App\Companies;
 use App\Employees;
 use App\Http\Requests\Employees as RequestsEmployees;
 use Illuminate\Http\Request;
+use PDF;
+
 
 class EmployeesController extends Controller
 {
@@ -18,6 +20,16 @@ class EmployeesController extends Controller
     {
         $employees = Employees::with(['get_company'])->paginate(5);  
         return view('employees.index',compact('employees'));
+    }
+
+    public function print()
+    {
+        $employees = Employees::with(['get_company'])->paginate(5);  
+        $pdf = PDF::loadview('employees.print',compact(
+            'employees',
+        ));
+
+        return $pdf->download('Employees');
     }
 
     /**

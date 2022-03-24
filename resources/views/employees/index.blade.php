@@ -4,6 +4,7 @@
     <h2 class="text-center">List Data Employees</a></h2>
 <br>
     <a href="{{ route('employees.create') }}" class="btn btn-success mb-2">Add Data Employees</a>
+    <a href="{{ route('print') }}" class="btn btn-primary mb-2" href="">Print</a>
     <br>
     @if(session()->has('status'))
         <div class="alert alert-success">
@@ -20,6 +21,7 @@
                         <th>Email</th>
                         <th>Company</th>
                         <th>Created At</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +30,7 @@
                         <td>{{ $data->nama }}</td>
                         <td>{{ $data->email }}</td>
                         <td>
-                            <img class="rounded-circle mr-2" width="50px" height="50px" src="{{ url('/logo/'.$data->get_company->logo) }}" width="100px">
+                            <img class="rounded-circle mr-2" width="50px" height="50px" src="{{ url('storage/company/'.$data->get_company->logo) }}" width="100px">
                             {{ $data->get_company->nama }}
                         </td>
                         <td>{{ date('Y-m-d', strtotime($data->created_at)) }}</td>

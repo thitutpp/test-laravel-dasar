@@ -43,7 +43,7 @@
             <div class="form-group">
                 <strong>Logo :</strong>
                 <input type="file" name="logo" class="form-control" placeholder="logo">
-                <img src="{{ url('/logo/'.$companies->logo) }}" width="100px">
+                <img src="{{ url('storage/company/'.$companies->logo) }}" width="100px">
             </div>
         </div>
         <div class="col-md-12">

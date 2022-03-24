@@ -7,7 +7,7 @@
 <div class="container d-flex justify-content-center">
 
 <div class="card" style="width: 18rem;">
-    <img src="{{ url('/logo/'.$employees->get_company->logo) }}" width="1000px" class="card-img-top" alt="...">
+    <img src="{{ url('storage/company/'.$employees->get_company->logo) }}" width="1000px" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">{{$employees->nama}}</h5>
       <ul class="list-unstyled">
