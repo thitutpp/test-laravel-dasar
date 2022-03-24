@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\companies;
+use App\Companies;
 use Illuminate\Http\Request;
 
 class CompaniesController extends Controller
@@ -14,7 +14,8 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        //
+        $companies = companies::orderBy('id','desc')->paginate(5);
+        return view('companies.index', compact('companies'));
     }
 
     /**
@@ -24,7 +25,7 @@ class CompaniesController extends Controller
      */
     public function create()
     {
-        //
+        return view('companies.create');
     }
 
     /**
@@ -35,51 +36,125 @@ class CompaniesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'email' => 'required|email',
+            'website' => 'required|url',
+            ]);
+
+            $logo='noimg.png';
+        if($request->logo)
+        {
+        $request->validate([
+            'logo' => 'required|image|mimes:png|dimensions:min_width="100px",min_height="100px"',
+        ]);
+
+        $logo = date('mdYHis').uniqid().'.'.$request->logo->extension();
+        $request->logo->move(public_path('logo'),$logo);	
+       
+
+        }
+ 
+
+
+        $companies = new Companies();
+        $companies->nama = $request->nama;
+        $companies->email = $request->email;
+        $companies->website = $request->website;
+        $companies->logo = $logo;
+        $companies->save();
+        $request->session()->flash('status','Companies Inserted Successfully');
+        return redirect('companies');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\companies  $companies
+     * @param  \App\Companies  $companies
      * @return \Illuminate\Http\Response
      */
-    public function show(companies $companies)
+    public function show($id)
     {
-        //
+        $companies = Companies::find($id);
+        return view('companies.show')->with('companies',$companies) ;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\companies  $companies
+     * @param  \App\Companies  $companies
      * @return \Illuminate\Http\Response
      */
-    public function edit(companies $companies)
+    public function edit($id)
     {
-        //
+        $companies = Companies::find($id);
+        return view('companies.edit')->with('companies',$companies) ;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\companies  $companies
+     * @param  \App\Companies  $companies
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, companies $companies)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'email' => 'required|email',
+            'website' => 'required|url',
+            ]);
+
+            $companies = Companies::find($id);
+
+
+
+
+if($request->logo){
+    $request->validate([
+        'logo' => 'nullable|file|image|mimes:jpeg,png,jpg|max:5000'
+    ]);  
+
+        if($companies->logo != 'noimg.png'){
+
+          $oldImg =$companies->logo;
+          unlink(public_path('uploaded_imgs').'/'.$oldImg);
+
+          $imgName = $request->logo;
+        }
+
+            $imgName = date('mdYHis').uniqid().'.'.$request->logo->extension();
+            $request->logo->move(public_path('uploaded_imgs'), $imgName); 
+        
+    }
+    else{
+        $imgName = $companies->logo;
+    }
+        $companies->nama = $request->nama;
+        $companies->email = $request->email;
+        $companies->website = $request->website;
+        $companies->logo =  $imgName;
+        $companies->save();
+        $request->session()->flash('status','Companies Updated Successfully');
+        return redirect('companies');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\companies  $companies
+     * @param  \App\Companies  $companies
      * @return \Illuminate\Http\Response
      */
-    public function destroy(companies $companies)
+    public function destroy($id)
     {
-        //
+        $companies = Companies::find($id);
+        if($companies ->logo !='noimg.png'){ 
+            $oldImg =$companies->logo;
+            unlink(public_path('logo').'/'.$oldImg); 
+        }
+        $companies->delete();
+        session()->flash('status', 'Companies Deleted Successfully');
+        return redirect('companies');
     }
 }
