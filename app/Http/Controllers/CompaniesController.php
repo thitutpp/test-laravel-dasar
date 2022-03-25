@@ -147,7 +147,7 @@ class CompaniesController extends Controller
         $companies = Companies::find($id);
         if($companies ->logo !='noimg.png'){ 
             $oldImg =$companies->logo;
-            unlink(public_path('logo').'/'.$oldImg); 
+            unlink(storage_path('app/company').'/'.$oldImg); 
         }
         $companies->delete();
         session()->flash('status', 'Companies Deleted Successfully');

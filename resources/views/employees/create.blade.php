@@ -2,17 +2,15 @@
 @section('content')
 <div class="container">
     <h2 class="text-center">Add Data Employees</a></h2>
-    <br>
-
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
     <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -20,13 +18,15 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <strong>Nama</strong>
-                    <input type="text" name="nama" value="{{old('nama')}}" class="form-control" placeholder="Masukan Nama Anda">
+                    <input type="text" name="nama" value="{{old('nama')}}" class="form-control"
+                        placeholder="Masukan Nama Anda">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group">
                     <strong>Email</strong>
-                    <input type="text" name="email" value="{{old('email')}}" class="form-control" placeholder="Masukan Email Anda">
+                    <input type="text" name="email" value="{{old('email')}}" class="form-control"
+                        placeholder="Masukan Email Anda">
                 </div>
             </div>
             <div class="col-md-12">
