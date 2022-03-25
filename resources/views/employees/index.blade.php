@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-12">
             <table class="table table-bordered">
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                         <th>Nama</th>
                         <th>Email</th>
@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($employees as $data)
+                    @forelse($employees as $data)
                     <tr>
                         <td>{{ $data->nama }}</td>
                         <td>{{ $data->email }}</td>
@@ -53,7 +53,9 @@
                             </div>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr><td colspan="6" class="text-center">Data Not Found</td></tr>
+                    @endforelse
                 </tbody>
             </table>
             {!! $employees->links() !!}

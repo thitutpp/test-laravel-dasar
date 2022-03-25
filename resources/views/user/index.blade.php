@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-12">
             <table class="table table-bordered">
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                         <th>Nama</th>
                         <th>Email</th>
@@ -22,13 +22,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($user as $data)
+                    @forelse($user as $data)
                     <tr>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->email }}</td>
                         <td>{{ $data->password }}</td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr><td colspan="6" class="text-center">Data Not Found</td></tr>
+                    @endforelse
                 </tbody>
             </table>
             {!! $user->links() !!}
